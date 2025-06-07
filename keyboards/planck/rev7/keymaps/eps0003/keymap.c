@@ -6,6 +6,7 @@
 
 // Layers
 #define LA_COL TG(COL)
+#define LA_GAM TG(GAM)
 #define LA_NUM MO(NUM)
 #define LA_NAV MO(NAV)
 #define LA_FUN MO(FUN)
@@ -64,7 +65,7 @@
 /* ========== ENUMS ========== */
 /* =========================== */
 
-enum layers { QWE, COL, NUM, FUN, NAV, MSE, SYM };
+enum layers { QWE, COL, GAM, NUM, FUN, NAV, MSE, SYM };
 
 /* ============================ */
 /* ========== KEYMAP ========== */
@@ -77,13 +78,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
         KC_ESC,  MT_A,    MT_S,    MT_D,    MT_F,    KC_G,    KC_H,    MT_J,    MT_K,    MT_L,    MT_SCLN, KC_QUOT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-        KC_LCTL, KC_LGUI, KC_LALT, LA_MSE,  LA_NAV,  KC_SPC,  KC_BSPC, LA_NUM,  LA_FUN,  LA_NAV,  LA_COL,  XXXXXXX
+        KC_LCTL, KC_LGUI, KC_LALT, LA_MSE,  LA_NAV,  KC_SPC,  KC_BSPC, LA_NUM,  LA_FUN,  LA_NAV,  LA_COL,  LA_GAM
     ),
 
     [COL] = LAYOUT_planck_grid(
         KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
         KC_ESC,  MT2_A,   MT2_R,   MT2_S,   MT2_T,   KC_G,    KC_M,    MT2_N,   MT2_E,   MT2_I,   MT2_O,   KC_QUOT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+
+    [GAM] = LAYOUT_planck_grid(
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+        KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
