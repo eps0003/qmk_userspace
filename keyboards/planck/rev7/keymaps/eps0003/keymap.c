@@ -66,11 +66,6 @@
 
 enum layers { QWE, COL, NUM, FUN, NAV, MSE, SYM };
 
-enum keycodes {
-    // Macros
-    KC_DDS = SAFE_RANGE, // KC_DOT_DOT_SLASH
-};
-
 /* ============================ */
 /* ========== KEYMAP ========== */
 /* ============================ */
@@ -121,9 +116,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [SYM] = LAYOUT_planck_grid(
-        KC_TAB,  XXXXXXX, KC_LABK, KC_RABK, KC_HASH, KC_DDS,  KC_CIRC, KC_PIPE, KC_LBRC, KC_RBRC, XXXXXXX, KC_BSPC,
+        KC_TAB,  XXXXXXX, KC_LABK, KC_RABK, KC_HASH, KC_CIRC, KC_CIRC, KC_PIPE, KC_LBRC, KC_RBRC, XXXXXXX, KC_BSPC,
         KC_ESC,  MT_EXLM, MT_MINS, MT_PLUS, MT_EQL,  KC_PERC, KC_GRV,  MT_AMPR, MT_LPRN, MT_RPRN, MT_QUES, XXXXXXX,
-        KC_LSFT, KC_DDS,  KC_BSLS, KC_ASTR, KC_SLSH, KC_AT,   KC_TILD, KC_DLR,  KC_LCBR, KC_RCBR, KC_CIRC, KC_ENT,
+        KC_LSFT, KC_CIRC, KC_BSLS, KC_ASTR, KC_SLSH, KC_AT,   KC_TILD, KC_DLR,  KC_LCBR, KC_RCBR, KC_CIRC, KC_ENT,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -176,21 +171,6 @@ bool process_modtap(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-bool process_macros(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_DDS:
-            if (record->event.pressed) {
-                uint8_t mods = get_mods();
-                clear_mods();
-                SEND_STRING("../");
-                set_mods(mods);
-            }
-            break;
-    }
-
-    return true;
-}
-
 bool process_misc(uint16_t keycode, keyrecord_t *record) {
     // Cancel oneshot mods when activating a layer
     if (record->event.pressed && IS_QK_MOMENTARY(keycode)) {
@@ -225,10 +205,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
 
     if (!process_modtap(keycode, record)) {
-        return false;
-    }
-
-    if (!process_macros(keycode, record)) {
         return false;
     }
 
