@@ -1,0 +1,9 @@
+MOUSEKEY_ENABLE = yes
+CAPS_WORD_ENABLE = yes
+REPEAT_KEY_ENABLE = yes
+CONSOLE_ENABLE = no
+
+AUDIO_ENABLE = no
+RGBLIGHT_ENABLE = no
+
+SRC += features/achordion.c
