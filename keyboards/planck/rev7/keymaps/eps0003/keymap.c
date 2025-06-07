@@ -1,11 +1,5 @@
 #include QMK_KEYBOARD_H
 
-/* ============================== */
-/* ========== FEATURES ========== */
-/* ============================== */
-
-#include "features/achordion.h"
-
 /* =============================== */
 /* ========== CONSTANTS ========== */
 /* =============================== */
@@ -230,10 +224,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
 #endif
 
-    if (!process_achordion(keycode, record)) {
-        return false;
-    }
-
     if (!process_modtap(keycode, record)) {
         return false;
     }
@@ -247,34 +237,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     return true;
-}
-
-void matrix_scan_user(void) {
-    achordion_task();
-}
-
-/* =============================== */
-/* ========== ACHORDION ========== */
-/* =============================== */
-
-bool achordion_chord(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record, uint16_t other_keycode, keyrecord_t *other_record) {
-    // Disable default bilateral combinations behaviour
-    return true;
-}
-
-uint16_t achordion_streak_chord_timeout(uint16_t tap_hold_keycode, uint16_t next_keycode) {
-    // No timeout for shift and ctrl mod-tap keys
-    if (QK_MOD_TAP_GET_MODS(tap_hold_keycode) & (MOD_LSFT | MOD_LCTL)) {
-        return 0;
-    }
-
-    // No timeout for layer keys
-    if (IS_QK_MOMENTARY(next_keycode)) {
-        return 0;
-    }
-
-    // Default timeout
-    return 200;
 }
 
 /* ======================================= */
@@ -317,6 +279,20 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
         case OS_ALT:
         case OS_GUI:
             return false;
+    }
+
+    return true;
+}
+
+bool is_flow_tap_key(uint16_t keycode) {
+    // Not shift and ctrl mod-tap keys
+    if (QK_MOD_TAP_GET_MODS(keycode) & (MOD_LSFT | MOD_LCTL)) {
+        return false;
+    }
+
+    // Not layer keys
+    if (IS_QK_MOMENTARY(keycode)) {
+        return false;
     }
 
     return true;

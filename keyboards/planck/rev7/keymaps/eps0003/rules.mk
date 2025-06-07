@@ -5,5 +5,3 @@ CONSOLE_ENABLE = no
 
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = no
-
-SRC += features/achordion.c
