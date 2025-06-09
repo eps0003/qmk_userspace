@@ -185,19 +185,14 @@ bool process_misc(uint16_t keycode, keyrecord_t *record) {
         clear_oneshot_mods();
     }
 
-    switch (keycode) {
-        // QWERTY shift mod-tap keys
-        case MT_F:
-        case MT_J:
-        // Colemak-DH shift mod-tap keys
-        case MT2_T:
-        case MT2_N:
-            // Enable caps word if both mod shift keys are pressed
+    // Enable caps word if both mod-tap shift keys are pressed
+    if ((keycode & QK_MOD_TAP) == QK_MOD_TAP) {
+        if (QK_MOD_TAP_GET_MODS(keycode) & MOD_LSFT) {
             if (record->event.pressed && !record->tap.count && get_mods() & MOD_MASK_SHIFT) {
                 caps_word_on();
                 return false;
             }
-            break;
+        }
     }
 
     return true;
@@ -238,31 +233,20 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
-    // Disable permissive hold for pinkie mod-tap keys to prevent accidental
-    // triggers. Pinkies tend to stay pressed for longer due to their reduced
-    // dexterity, enabling another key to be pressed and released within the
-    // tapping term. For example, trying to type the common bigram 'al' on
-    // QWERTY with permissive hold frequently triggers LGUI+L which locks the
-    // computer. >:(
-    switch (keycode) {
-        // QWERTY pinky mod-tap keys
-        case MT_A:
-        case MT_SCLN:
-        // Colemak pinky mod-tap keys
-        // case MT2_A: // Duplicate of MT_A
-        case MT2_O:
-        // Symbol pinky mod-tap keys
-        case MT_EXLM:
-        case MT_QUES:
-            return false;
+    // Disable for oneshot keys so they can be tapped simultaneously
+    if ((keycode & QK_ONE_SHOT_MOD) == QK_ONE_SHOT_MOD) {
+        return false;
+    }
 
-        // Disable permissive hold for oneshot keys so they can be tapped
-        // simultaneously
-        case OS_SHFT:
-        case OS_CTRL:
-        case OS_ALT:
-        case OS_GUI:
+    // Disable for GUI mod-tap keys to prevent accidental triggers. Pinkies tend
+    // to stay pressed for longer due to their reduced dexterity, enabling
+    // another key to be pressed and released within the tapping term. For
+    // example, trying to type the common bigram 'al' on QWERTY with permissive
+    // hold frequently triggers LGUI+L which locks the computer. >:(
+    if ((keycode & QK_MOD_TAP) == QK_MOD_TAP) {
+        if (QK_MOD_TAP_GET_MODS(keycode) & MOD_LGUI) {
             return false;
+        }
     }
 
     return true;
@@ -270,8 +254,10 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
 
 bool is_flow_tap_key(uint16_t keycode) {
     // Not shift and ctrl mod-tap keys
-    if (QK_MOD_TAP_GET_MODS(keycode) & (MOD_LSFT | MOD_LCTL)) {
-        return false;
+    if ((keycode & QK_MOD_TAP) == QK_MOD_TAP) {
+        if (QK_MOD_TAP_GET_MODS(keycode) & (MOD_LSFT | MOD_LCTL)) {
+            return false;
+        }
     }
 
     // Not layer keys
