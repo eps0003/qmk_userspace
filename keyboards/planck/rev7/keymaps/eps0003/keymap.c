@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [NUM] = LAYOUT_planck_grid(
-        KC_TAB,  XXXXXXX, KC_4,    KC_5,    KC_6,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT, KC_BSPC,
+        KC_TAB,  XXXXXXX, KC_4,    KC_5,    KC_6,    XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, KC_BSPC,
         KC_ESC,  KC_0,    KC_1,    KC_2,    KC_3,    KC_0,    XXXXXXX, OS_SHFT, OS_CTRL, OS_ALT,  OS_GUI,  XXXXXXX,
         CW_TOGG, KC_GRV,  KC_7,    KC_8,    KC_9,    KC_GRV,  XXXXXXX, KC_DOT,  KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
         _______, _______, _______, _______, _______, KC_MINS, _______, _______, _______, _______, _______, _______
@@ -117,14 +117,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [NAV] = LAYOUT_planck_grid(
-        KC_TAB,  QK_BOOT, KC_INS,  KC_BTN4, KC_BTN5, XXXXXXX, XXXXXXX, KC_BTAB, KC_UP,   KC_TAB,  XXXXXXX, KC_DEL,
+        QK_BOOT, XXXXXXX, KC_INS,  KC_BTN4, KC_BTN5, XXXXXXX, XXXXXXX, KC_BTAB, KC_UP,   KC_TAB,  XXXXXXX, KC_DEL,
         KC_ESC,  OS_GUI,  OS_ALT,  OS_CTRL, OS_SHFT, XXXXXXX, KC_PGUP, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  KC_PSCR,
         KC_LSFT, XXXXXXX, TAB_1,   TAB_PRV, TAB_NXT, XXXXXXX, KC_PGDN, KC_HOME, KC_WH_D, KC_WH_U, XXXXXXX, KC_ENT,
         _______, _______, _______, _______, _______, _______, KC_ENT,  _______, _______, _______, _______, _______
     ),
 
     [MSE] = LAYOUT_planck_grid(
-        KC_TAB,  QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN4, KC_MS_U, KC_BTN5, XXXXXXX, KC_DEL,
+        QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN4, KC_MS_U, KC_BTN5, XXXXXXX, KC_DEL,
         KC_ESC,  OS_GUI,  OS_ALT,  OS_CTRL, OS_SHFT, XXXXXXX, SCR_TOP, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, XXXXXXX,
         KC_LSFT, XXXXXXX, KC_BTN2, KC_BTN3, KC_BTN1, XXXXXXX, SCR_BOT, KC_WH_D, KC_WH_U, KC_WH_U, XXXXXXX, KC_ENT,
         _______, _______, _______, _______, _______, KC_BTN3, KC_BTN1, KC_BTN2, KC_BTN3, _______, _______, _______
