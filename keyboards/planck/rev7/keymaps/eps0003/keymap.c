@@ -5,8 +5,8 @@
 /* =============================== */
 
 // Layers
-#define LA_COL TG(COL)
-#define LA_GAM TG(GAM)
+#define LA_COL TD(TD_COL)
+#define LA_GAM TD(TD_GAM)
 #define LA_NUM MO(NUM)
 #define LA_NAV MO(NAV)
 #define LA_FUN MO(FUN)
@@ -67,9 +67,16 @@
 
 enum layers { QWE, COL, GAM, NUM, FUN, NAV, MSE, SYM };
 
+enum tap_dance { TD_COL, TD_GAM };
+
 /* ============================ */
 /* ========== KEYMAP ========== */
 /* ============================ */
+
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_COL] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_NO, COL),
+    [TD_GAM] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_NO, GAM),
+};
 
 /* clang-format off */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
